@@ -1,5 +1,7 @@
+### NAME - VIDHIYA LAKSHMI s
+### REG NO - 212223230238
 ### EX4 Implementation of Cluster and Visitor Segmentation for Navigation patterns
-### DATE: 
+
 ### AIM: To implement Cluster and Visitor Segmentation for Navigation patterns in Python.
 ### Description:
 <div align= "justify">Cluster visitor segmentation refers to the process of grouping or categorizing visitors to a website, 
@@ -13,37 +15,82 @@
 3) Segment Visitors by iterating through the dictionary and filter the visitors into respective age groups.
 4) Visualize the result using matplotlib.
 
-### Program:
-```python
-# Visitor segmentation based on characteristics
-# read the data
-/*WRITE YOUR CODE HERE
-
-# Perform segmentation based on characteristics (e.g., age groups)
-/*WRITE YOUR CODE HERE
-
+### Program - 1:
 ```
-### Output:
+python
 
-### Visualization:
-```python
-# Create a list to store counts of visitors in each age group
-/*WRITE YOUR CODE HERE
+import pandas as pd
+df=pd.read_csv("/content/clustervisitor.csv")
+df
 
-# Count visitors in each age group
-/*WRITE YOUR CODE HERE
-    
-# Define age group labels and plot a bar chart
-/*WRITE YOUR CODE HERE
+cluster = {"Young":(df['Age']<=30),"Middle":((df['Age']>30) & (df['Age']<=50)),"Old":(df['Age']>50)}
+print(cluster)
 
-plt.figure(figsize=(8, 6))
-plt.bar(age_group_labels, visitor_counts, color='skyblue')
+count=[]
+for g,c in cluster.items():
+  visitors=df[c]
+  count.append(len(visitors))
+  print(f"visitors in {g} Group")
+  print(visitors)
+  print(count)
+
+import matplotlib.pyplot as plt
+plt.figure(figsize=(8,6))
+plt.bar(cluster.keys(),count,color='skyblue')
 plt.xlabel('Age Groups')
 plt.ylabel('Number of Visitors')
 plt.title('Visitor Distribution Across Age Groups')
 plt.show()
+
+```
+### Output:
+
+<img width="403" height="694" alt="image" src="https://github.com/user-attachments/assets/1ded66de-62f7-40ed-b8ed-d66aef31fb52" />
+
+
+
+
+
+
+
+<img width="804" height="561" alt="image" src="https://github.com/user-attachments/assets/3c4b12ad-de1a-4eb6-b8d2-0148261b6de7" />
+
+
+### Program - 2: 
+
+```
+python
+
+import pandas as pd
+df=pd.read_csv("/content/clustervisitor (Salary).csv")
+df
+
+df1=df['Age']
+df2=df['Salary']
+df3=pd.concat([df1,df2],axis=1)
+df3
+
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+
+kmeans=KMeans(n_clusters=3,random_state=42)
+df3['cluster']=kmeans.fit_predict(df3)
+df3
+
+plt.scatter(df3['Age'],df3['Salary'],c=df3['cluster'])
+plt.xlabel('Age')
+plt.ylabel('Salary')
+plt.title('Clustered Data')
+plt.show()
+
 ```
 ### Output:
 
 
+<img width="133" height="616" alt="Screenshot 2025-09-19 111938" src="https://github.com/user-attachments/assets/db7f981d-fb63-4c5f-a5cf-78a366adaf03" />
+
+<img width="637" height="445" alt="Screenshot 2025-09-19 111959" src="https://github.com/user-attachments/assets/fe9a3584-7268-4b7e-a20f-adc22a865b7e" />
+
 ### Result:
+
+The implement Cluster and Visitor Segmentation for Navigation patterns in Python is execute successfully.
